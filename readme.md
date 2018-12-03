@@ -51,4 +51,4 @@ $liste0To10() {
 | @if(\$var == c)<br>Plouc<br>@elif(\$var==k)<br>Plouk <br>@else<br>Plouque<br>@endif | Plouc |
 | @for($i=0;i<3;i++)<br>* Elem $i<br>@endforeach| \<ul>\<li>Elem 1\</li>\<li>Elem 2\</li>\<li>Elem 3\</li>\</ul> |
 | @while($i<3)<br>* Elem $i<br>\$i+=1@endwhile | \<ul>\<li>Elem 1\</li>\<li>Elem 2\</li>\<li>Elem 3\</li>\</ul |
-| @func myFunction(\$i) <br> # Titre $i<br>@endfunc <br> @myFunction(3) | \<h1>Titre 3\</h1> |
+| @func myFunc(\$i) <br> # Titre $i<br>@endfunc <br> @myFunc(3) | \<h1>Titre 3\</h1> |
