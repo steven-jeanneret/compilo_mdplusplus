@@ -39,6 +39,7 @@ $liste0To10() {
 # Lexèmes
 | Input | Output |
 |---|---|
+| Simple text | Simple text |
 | \*italic\*  | \<i>italic\</i> |
 | \*\*bold\*\* | \<b>bold\</b> |
 | \*\*\* bold and italic \*\*\* | \<i>\<b>bold and italic\</b>\</i> |
