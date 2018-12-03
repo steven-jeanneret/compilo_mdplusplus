@@ -30,3 +30,16 @@ $liste0To10() {
 
 $liste0To10()
 ```
+
+# Lexèmes
+| Input | Output |
+|---|---|
+| \*italic\*  | \<i>italic\</i> |
+| \*\*bold\*\* | \<b>bold\</b> |
+| \*\*\* bold and italic \*\*\* | \<i>\<b>bold and italic\</b>\</i> |
+| # Title 1 | \<h1>Title 1\</h1> |
+| ## Title 1.1 | \<h2>Title 1.1\</h2>|
+| ### Title 1.1.1 | \<h3>Title 1.1.1\</h3>|
+| * Elem 1 <br> * Elem 2 <br> &emsp; * Elem 1 | \<ul>\<li>Elem 1\</li>\<li>Elem 2\</li>\<ul>\<li>Elem 1\</li>\</ul>\</ul> |
+| 1. Elem 1 <br> 2. Elem 2 <br> &emsp; 1. Elem 1 | \<ol>\<li>Elem 1\</li>\<li>Elem 2\</li>\<ol>\<li>Elem 1\</li>\</ol>\</ol> |
+| \|header1\|header2\|<br>\|\---\|\---\|<br>\| cell 1\| cell 2\| | \<table>\<tr>\<th>header 1\</th>\<th>header 2\</th>\</tr>\<tr>\<td>cell 1\</td>\<td>cell 2\</td>\</tr>\</table>  |
