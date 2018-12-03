@@ -22,8 +22,13 @@ Un exemple de boucle et de fonction
 ```md
 # Exemple avec une boucle for :
 
+<<<<<<< HEAD
 @func liste0To10()
   @for($i=0;$i<10;$i++)
+=======
+$liste0To10() {
+  @for($i=0;i<10;$i++) {
+>>>>>>> 51ef57b0116e58dd8392fa6c0f1ce5ff4ca1e9ec
     * Element $i
   @endfor
 @endfunc
