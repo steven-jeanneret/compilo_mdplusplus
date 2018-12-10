@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'WORD _ELIF _ENDFOR _ENDFUNC _ENDIF _ENDWHILE _FOR _FUNC _IF _WHILE newline text : line  text : line newline text  line : WORD   line : WORD line '
+_lr_signature = 'HEADER_TITLE WORD _ELIF _ENDFOR _ENDFUNC _ENDIF _ENDWHILE _FOR _FUNC _IF _WHILE newline text : line  text : line newline text\n    | title newline text  line : WORD   line : WORD line  title : HEADER_TITLE line '
     
-_lr_action_items = {'WORD':([0,3,4,],[3,3,3,]),'$end':([1,2,3,5,6,],[0,-1,-3,-4,-2,]),'newline':([2,3,5,],[4,-3,-4,]),}
+_lr_action_items = {'WORD':([0,4,5,6,7,],[4,4,4,4,4,]),'HEADER_TITLE':([0,6,7,],[5,5,5,]),'$end':([1,2,4,8,10,11,],[0,-1,-4,-5,-2,-3,]),'newline':([2,3,4,8,9,],[6,7,-4,-5,-6,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'text':([0,4,],[1,6,]),'line':([0,3,4,],[2,5,2,]),}
+_lr_goto_items = {'text':([0,6,7,],[1,10,11,]),'line':([0,4,5,6,7,],[2,8,9,2,2,]),'title':([0,6,7,],[3,3,3,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,8 +27,10 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> text","S'",1,None,None,None),
-  ('text -> line','text',1,'p_text_statemet','parser5.py',9),
-  ('text -> line newline text','text',3,'p_text','parser5.py',13),
-  ('line -> WORD','line',1,'p_line','parser5.py',17),
-  ('line -> WORD line','line',2,'p_wordLine','parser5.py',21),
+  ('text -> line','text',1,'p_text_statemet','parser5.py',10),
+  ('text -> line newline text','text',3,'p_text','parser5.py',15),
+  ('text -> title newline text','text',3,'p_text','parser5.py',16),
+  ('line -> WORD','line',1,'p_line','parser5.py',21),
+  ('line -> WORD line','line',2,'p_wordLine','parser5.py',26),
+  ('title -> HEADER_TITLE line','title',2,'p_title','parser5.py',31),
 ]
