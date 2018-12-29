@@ -224,3 +224,8 @@ pip-selfcheck.json
 .history
 
 # End of https://www.gitignore.io/api/python,pycharm,visualstudiocode
+
+.idea/
+generated/
+*.out
+parsetab.py

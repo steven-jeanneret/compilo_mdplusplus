@@ -14,20 +14,24 @@ reserved_words = (
 
 tokens = (
              'WORD',
-             'newline',
+             'NEW_LINE',
              'HEADER_TITLE',
+             'BOLD_DELIMITER',
+             'ITALIC_DELIMITER',
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 literals = ''
 
-t_HEADER_TITLE = r'^\#+'
-t_WORD = r'\S+'
+t_HEADER_TITLE = r'\#{1,6}'
+t_WORD = r'\w+'
+t_BOLD_DELIMITER = r'[*]{2}'
+t_ITALIC_DELIMITER = r'[*]{1}'
 
 
-
-def t_newline(t):
+def t_NEW_LINE(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+    t.value = ""
     return t
 
 

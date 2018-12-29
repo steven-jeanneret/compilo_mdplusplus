@@ -53,3 +53,18 @@ $liste0To10() {
 | @for($i=0;i<3;i++)<br>* Elem $i<br>@endforeach| \<ul>\<li>Elem 1\</li>\<li>Elem 2\</li>\<li>Elem 3\</li>\</ul> |
 | @while($i<3)<br>* Elem $i<br>\$i+=1@endwhile | \<ul>\<li>Elem 1\</li>\<li>Elem 2\</li>\<li>Elem 3\</li>\</ul |
 | @func myFunc(\$i) <br> # Titre $i<br>@endfunc <br> @myFunc(3) | \<h1>Titre 3\</h1> |
+
+# Grammaire
+| expression | définition | commentaires |
+|---|---|---|
+| text | line text| Une ligne suivis d'autres |
+| text | line | Dernière ligne|
+| line | statement newline | Statement suivis par d'autres |
+| line | statement | Dernier statement |
+| statement | word | |
+| statement | bold |  |
+| statement | italic | |
+| bold | \*\* WORD \*\* | lex |
+| italic |\* WORD \* | lex |
+| list | list_elem list | Liste composé de plusieurs list_elem|
+| list | list_elem | Dernier éléments de la liste |
