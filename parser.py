@@ -5,12 +5,14 @@ vars = {}
 
 
 def p_file_line(p):
-    """ file : line file """
+    """ file : line file
+            | list file """
     p[0] = p[1] + p[2]
 
 
 def p_file(p):
-    """ file : line """
+    """ file : line
+            | list """
     p[0] = p[1]
 
 
@@ -34,12 +36,12 @@ def p_statement(p):
 
 
 def p_statement_bold(p):
-    """ statement : BOLD_DELIMITER words BOLD_DELIMITER """
+    """ statement : DOUBLE_DELIMITER words DOUBLE_DELIMITER """
     p[0] = f"<b>{p[2]}</b>"
 
 
 def p_statement_italic(p):
-    """ statement : ITALIC_DELIMITER words ITALIC_DELIMITER"""
+    """ statement : SINGLE_DELIMITER words SINGLE_DELIMITER"""
     p[0] = f"<i>{p[2]}</i>"
 
 
@@ -49,6 +51,11 @@ def p_words(p):
     p[0] = p[1]
     if len(p) > 2:
         p[0] += " " + p[2]
+
+
+def p_list(p):
+    """ list : SINGLE_DELIMITER statement NEW_LINE"""
+    p[0] = f"<li>{p[2]}</li>\n"
 
 
 def p_error(p):
