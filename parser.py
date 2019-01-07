@@ -1,4 +1,6 @@
 import ply.yacc as yacc
+
+import AST
 from lex import tokens
 
 vars = {}
@@ -7,24 +9,24 @@ vars = {}
 def p_file_line(p):
     """ file : line file
             | list file """
-    p[0] = p[1] + p[2]
+    p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
 def p_file(p):
     """ file : line
             | list """
-    p[0] = p[1]
+    p[0] = AST.ProgramNode(p[1])
 
 
 def p_line(p):
     """ line : statement NEW_LINE """
-    p[0] = p[1] + "<br>\n"
+    p[0] = AST.LineNode(p[1].children)
 
 
 def p_line_title(p):
     """ line : HEADER_TITLE words NEW_LINE """
     lvl_title = len(p[1])
-    p[0] = f"<h{lvl_title}>" + p[2] + f"</h{lvl_title}>\n"
+    p[0] = AST.StyleNode(f"h{lvl_title}", p[2].children)
 
 
 def p_statement(p):
@@ -32,32 +34,34 @@ def p_statement(p):
                 | words
                 | assign
                 | use_var """
-    p[0] = p[1]
     if len(p) > 2:
-        p[0] += " " + p[2]
+        p[0] = AST.StatementNode(p[1].children + [p[2]])
+    else:
+        p[0] = AST.StatementNode(p[1].children)
 
 
 def p_statement_bold(p):
     """ statement : DOUBLE_DELIMITER words DOUBLE_DELIMITER """
-    p[0] = f"<b>{p[2]}</b>"
+    p[0] = AST.StyleNode('b', p[2].children)
 
 
 def p_statement_italic(p):
     """ statement : SINGLE_DELIMITER words SINGLE_DELIMITER"""
-    p[0] = f"<i>{p[2]}</i>"
+    p[0] = AST.StyleNode('i',p[2].children)
 
 
 def p_words(p):
     """ words : WORD
                 | WORD words"""
-    p[0] = p[1]
     if len(p) > 2:
-        p[0] += " " + p[2]
+        p[0] = AST.TokenNode(p[1], p[2].children)
+    else:
+        p[0] = AST.TokenNode(p[1])
 
 
 def p_list(p):
     """ list : SINGLE_DELIMITER statement NEW_LINE"""
-    p[0] = f"<li>{p[2]}</li>\n"
+    p[0] = AST.StyleNode('li', p[2].children)
 
 
 def p_error(p):
@@ -70,13 +74,12 @@ def p_error(p):
 
 def p_var_assign(p):
     """ assign : VAR '=' statement """
-    vars[p[1]] = p[3]
-    p[0] = ""
+    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
 def p_var_use(p):
     """ use_var : VAR """
-    p[0] = vars[p[1]]
+    p[0] = AST.TokenNode(p[1])
 
 
 def parse(program):
@@ -92,8 +95,12 @@ if __name__ == "__main__":
     result = yacc.parse(prog)
     if result:
         print(result)
-        with open('index.html', 'w') as f:
-            f.writelines(result)
+        import os
+
+        graph = result.makegraphicaltree()
+        name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
+        graph.write_pdf(name)
+        print("wrote ast to", name)
 
     else:
         print("Parsing returned no result!")

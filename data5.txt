@@ -5,7 +5,7 @@ test
 test1 test2
 test3
 test **bold text**
-t *italic text*
+test *italic text*
 * Elem 1
 * Elem 2
 	* Elem 2_1

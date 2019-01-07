@@ -94,15 +94,6 @@ class Node:
         
 class ProgramNode(Node):
     type = 'Program'
-        
-class TokenNode(Node):
-    type = 'token'
-    def __init__(self, tok):
-        Node.__init__(self)
-        self.tok = tok
-        
-    def __repr__(self):
-        return repr(self.tok)
     
 class OpNode(Node):
     def __init__(self, op, children):
@@ -115,6 +106,43 @@ class OpNode(Node):
         
     def __repr__(self):
         return "%s (%s)" % (self.op, self.nbargs)
+
+
+class LineNode(Node):
+    def __init__(self, children=None):
+        Node.__init__(self, children)
+        self.tok = "<br>\n"
+
+    def __repr__(self):
+        return repr(self.tok)
+
+
+class StyleNode(Node):
+    def __init__(self, tok, children=None):
+        Node.__init__(self, children)
+        self.tok = tok
+
+    def __repr__(self):
+        return repr(self.tok)
+
+class StatementNode(Node):
+    def __init__(self, children=None):
+        Node.__init__(self, children)
+
+    def __repr__(self):
+        return "Statement"
+
+
+class TokenNode(Node):
+    type = 'token'
+
+    def __init__(self, tok, children=None):
+        Node.__init__(self, children)
+        self.tok = tok
+
+    def __repr__(self):
+        return repr(self.tok)
+
     
 class AssignNode(Node):
     type = '='
