@@ -39,6 +39,10 @@ def p_statement(p):
     else:
         p[0] = AST.StatementNode(p[1])
 
+def p_statement_multi(p):
+    """ statement : statement statement """
+    p[0] = AST.StatementNode(p[1].children + p[2].children)
+
 
 def p_statement_bold(p):
     """ statement : DOUBLE_DELIMITER words DOUBLE_DELIMITER """

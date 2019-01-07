@@ -4,7 +4,7 @@ _plouc=salut
 test
 test1 test2
 test3
-test **bold text encore**
+test **bold text encore** tu me vois?
 test *italic text*
 * Elem 1
 * Elem 2

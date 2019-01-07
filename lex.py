@@ -24,7 +24,7 @@ tokens = (
 literals = '='
 
 t_HEADER_TITLE = r'\#{1,6}'
-t_WORD = r'\w+'
+t_WORD = r'[A-Za-z0-9()!?;:.,]+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
 t_VAR = r'_\w+'
