@@ -13,6 +13,7 @@ reserved_words = (
 )
 
 tokens = (
+             'VAR',
              'WORD',
              'NEW_LINE',
              'HEADER_TITLE',
@@ -20,12 +21,14 @@ tokens = (
              'SINGLE_DELIMITER',
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = ''
+literals = '='
 
 t_HEADER_TITLE = r'\#{1,6}'
 t_WORD = r'\w+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
+t_VAR = r'_\w+'
+
 
 def t_NEW_LINE(t):
     r'\n+'

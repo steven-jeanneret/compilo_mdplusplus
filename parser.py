@@ -29,7 +29,9 @@ def p_line_title(p):
 
 def p_statement(p):
     """ statement : words statement
-                | words """
+                | words
+                | assign
+                | use_var """
     p[0] = p[1]
     if len(p) > 2:
         p[0] += " " + p[2]
@@ -64,6 +66,17 @@ def p_error(p):
         yacc.yacc().errok()
     else:
         print("Sytax error: unexpected end of file!")
+
+
+def p_var_assign(p):
+    """ assign : VAR '=' statement """
+    vars[p[1]] = p[3]
+    p[0] = ""
+
+
+def p_var_use(p):
+    """ use_var : VAR """
+    p[0] = vars[p[1]]
 
 
 def parse(program):
