@@ -16,9 +16,11 @@ def thread(tree):
 
 
 if __name__ == '__main__':
-    from parser import parse
+    from parserproj import parse
     import sys
     import os
+
+    ##os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     entry = thread(ast)

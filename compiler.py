@@ -57,7 +57,7 @@ def compile(self):
 
 
 if __name__ == '__main__':
-    from parser import parse
+    from parserproj import parse
     import sys, os
 
     prog = open(sys.argv[1]).read()

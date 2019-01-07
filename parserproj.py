@@ -100,6 +100,8 @@ if __name__ == "__main__":
     if result:
         print(result)
         import os
+
+        ##os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
         graph.write_pdf(name)
