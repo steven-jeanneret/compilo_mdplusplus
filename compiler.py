@@ -3,6 +3,7 @@ from AST import addToClass
 
 vars = {}
 
+
 @addToClass(AST.ProgramNode)
 def compile(self):
     output = ""
@@ -17,7 +18,12 @@ def compile(self):
 def compile(self):
     if self.tok in vars:
         return vars[self.tok]
-    return self.tok
+    output = ""
+    for c in self.children:
+        out = c.compile()
+        if out is not None:
+            output += out + " "
+    return self.tok + " " + output
 
 
 @addToClass(AST.AssignNode)
@@ -27,21 +33,26 @@ def compile(self):
 
 @addToClass(AST.LineNode)
 def compile(self):
-    output = self.children[0].compile()
-    if output is not None:
-        return output + "<br>\n"
+    output = ""
+    for c in self.children:
+        out = c.compile()
+        if out is not None:
+            output += out
+    if output != "":
+        output += "<br>\n"
+    return output
 
 
 @addToClass(AST.StatementNode)
 def compile(self):
     output = ""
     for c in self.children:
-        output += c.compile()
+        output += c.compile() + " "
     return output
 
 @addToClass(AST.StyleNode)
 def compile(self):
-    return f"<{self.tok}>{self.children[0].compile()}</{self.tok}"
+    return f"<{self.tok}>{self.children[0].compile()}</{self.tok}>"
 
 
 if __name__ == '__main__':
