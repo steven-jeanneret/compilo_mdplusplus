@@ -50,6 +50,7 @@ def compile(self):
         output += c.compile() + " "
     return output
 
+
 @addToClass(AST.StyleNode)
 def compile(self):
     return f"<{self.tok}>{self.children[0].compile()}</{self.tok}>"
