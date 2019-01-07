@@ -26,7 +26,7 @@ def p_line(p):
 def p_line_title(p):
     """ line : HEADER_TITLE words NEW_LINE """
     lvl_title = len(p[1])
-    p[0] = AST.StyleNode(f"h{lvl_title}", p[2].children)
+    p[0] = AST.StyleNode(f"h{lvl_title}", p[2])
 
 
 def p_statement(p):
@@ -35,33 +35,33 @@ def p_statement(p):
                 | assign
                 | use_var """
     if len(p) > 2:
-        p[0] = AST.StatementNode(p[1].children + [p[2]])
+        p[0] = AST.StatementNode([p[1]] + p[2].children)
     else:
-        p[0] = AST.StatementNode(p[1].children)
+        p[0] = AST.StatementNode(p[1])
 
 
 def p_statement_bold(p):
     """ statement : DOUBLE_DELIMITER words DOUBLE_DELIMITER """
-    p[0] = AST.StyleNode('b', p[2].children)
+    p[0] = AST.StyleNode('b', p[2])
 
 
 def p_statement_italic(p):
     """ statement : SINGLE_DELIMITER words SINGLE_DELIMITER"""
-    p[0] = AST.StyleNode('i',p[2].children)
+    p[0] = AST.StyleNode('i', p[2])
 
 
 def p_words(p):
     """ words : WORD
                 | WORD words"""
     if len(p) > 2:
-        p[0] = AST.StatementNode([AST.TokenNode(p[1])] + p[2].children)
+        p[0] = AST.TokenNode(p[1], p[2])
     else:
         p[0] = AST.TokenNode(p[1])
 
 
 def p_list(p):
     """ list : SINGLE_DELIMITER statement NEW_LINE"""
-    p[0] = AST.StyleNode('li', p[2].children)
+    p[0] = AST.StyleNode('li', p[2])
 
 
 def p_error(p):
@@ -74,7 +74,7 @@ def p_error(p):
 
 def p_var_assign(p):
     """ assign : VAR '=' statement """
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
+    p[0] = AST.AssignNode([AST.TokenNode(p[1])] + p[3].children)
 
 
 def p_var_use(p):
@@ -96,7 +96,6 @@ if __name__ == "__main__":
     if result:
         print(result)
         import os
-
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
         graph.write_pdf(name)
