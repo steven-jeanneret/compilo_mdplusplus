@@ -54,7 +54,7 @@ def p_words(p):
     """ words : WORD
                 | WORD words"""
     if len(p) > 2:
-        p[0] = AST.TokenNode(p[1], p[2].children)
+        p[0] = AST.StatementNode([AST.TokenNode(p[1])] + p[2].children)
     else:
         p[0] = AST.TokenNode(p[1])
 
