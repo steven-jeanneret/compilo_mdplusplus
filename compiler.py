@@ -8,6 +8,7 @@ vars = {}
 def compile(self):
     output = ""
     for c in self.children:
+        print(f"before :{c} => {type(c)}")
         out = c.compile()
         if out is not None:
             output += out

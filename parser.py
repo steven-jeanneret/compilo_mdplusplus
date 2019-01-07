@@ -35,13 +35,13 @@ def p_statement(p):
                 | assign
                 | use_var """
     if len(p) > 2:
-        p[0] = AST.StatementNode([p[1]] + p[2].children)
+        p[0] = AST.StatementNode([p[1], p[2]])
     else:
         p[0] = AST.StatementNode(p[1])
 
 def p_statement_multi(p):
     """ statement : statement statement """
-    p[0] = AST.StatementNode(p[1].children + p[2].children)
+    p[0] = AST.StatementNode([p[1], p[2]])
 
 
 def p_statement_bold(p):
