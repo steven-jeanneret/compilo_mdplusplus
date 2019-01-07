@@ -8,7 +8,6 @@ vars = {}
 def compile(self):
     output = ""
     for c in self.children:
-        print(f"before :{c} => {type(c)}")
         out = c.compile()
         if out is not None:
             output += out
@@ -20,10 +19,8 @@ def compile(self):
     if self.tok in vars:
         return vars[self.tok]
     output = ""
-    for c in self.children:
-        out = c.compile()
-        if out is not None:
-            output += out + " "
+    if len(self.children) > 0:
+        output += self.children[0].compile()
     return self.tok + " " + output
 
 
@@ -39,8 +36,7 @@ def compile(self):
         out = c.compile()
         if out is not None:
             output += out
-    if output != "":
-        output += "<br>\n"
+    output += "<br>\n"
     return output
 
 
