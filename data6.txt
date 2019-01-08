@@ -4,10 +4,10 @@ _lol=3
 test
 test1 test2
 test3
-test **bold text**
+**bold text**
 t *italic text*
 * Elem 1
 * Elem 2
 	* Elem 2_1
-_lol=4
+_lol=_lol + 4
 _lol

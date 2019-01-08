@@ -21,15 +21,14 @@ def p_file(p):
 def p_line(p):
     """ line : statement NEW_LINE """
 
-    p[0] = AST.LineNode(p[1].children)
+    p[0] = AST.LineNode(p[1])
 
 
 def p_op(p):
     """ statement : VAR ADD_OP WORD
         | VAR MUL_OP WORD"""
     try:
-        nb = int(p[3])
-        p[0] = AST.OpNode(p[2], [p[1], p[3]])
+        p[0] = AST.OpNode(p[2], [AST.TokenNode(p[1]), AST.TokenNode(p[3])])
     except(ValueError):
         pass
 
@@ -90,7 +89,7 @@ def p_error(p):
 
 def p_var_assign(p):
     """ assign : VAR '=' statement """
-    p[0] = AST.AssignNode([AST.TokenNode(p[1])] + p[3].children)
+    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
 def p_var_use(p):
@@ -109,8 +108,8 @@ if __name__ == "__main__":
 
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
+    print(result)
     if result:
-        print(result)
         import os
 
         ##os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
