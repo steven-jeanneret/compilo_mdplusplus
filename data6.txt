@@ -15,3 +15,6 @@ _lol
 _test = **bold**
 _test = *italic*
 _test
+_while(_i)
+_i
+_endwhile

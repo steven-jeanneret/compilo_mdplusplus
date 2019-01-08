@@ -8,13 +8,15 @@ vars = {}
 
 def p_file_line(p):
     """ file : line file
-            | list file """
+            | list file
+            | while_block file"""
     p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
 def p_file(p):
     """ file : line
-            | list """
+            | list
+            | while_block """
     p[0] = AST.ProgramNode(p[1])
 
 
@@ -25,6 +27,11 @@ def p_line(p):
 def p_line_assign(p):
     """ line : assign NEW_LINE """
     p[0] = AST.StatementNode(p[1])  # Don't display blank line
+
+
+def p_while(p):
+    """while_block : WHILE_BEGIN '(' VAR ')' NEW_LINE line WHILE_END """
+    p[0] = AST.TokenNode(p[3].children)
 
 
 def p_op(p):
