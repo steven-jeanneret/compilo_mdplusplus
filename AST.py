@@ -133,6 +133,30 @@ class StyleNode(Node):
         return repr(self.tok)
 
 
+class WhileNode(Node):
+    type = 'while'
+
+    def __init__(self, op, children=None):
+        Node.__init__(self, children)
+        self.op = op
+
+    def __repr__(self):
+        return repr(f"while")
+
+
+class EvalNode(Node):
+    type = 'eval'
+
+    def __init__(self, var_name, cond, stop_val, ):
+        Node.__init__(self)
+        self.var_name = var_name
+        self.cond = cond
+        self.stop_val = stop_val
+
+    def __repr__(self):
+        return repr(f"{self.cond} {self.stop_val}")
+
+
 class StatementNode(Node):
     def __init__(self, children=None):
         Node.__init__(self, children)
@@ -159,9 +183,6 @@ class AssignNode(Node):
 class PrintNode(Node):
     type = 'print'
 
-
-class WhileNode(Node):
-    type = 'while'
 
 
 class EntryNode(Node):

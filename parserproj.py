@@ -30,8 +30,13 @@ def p_line_assign(p):
 
 
 def p_while(p):
-    """while_block : WHILE_BEGIN '(' VAR ')' NEW_LINE line WHILE_END """
-    p[0] = AST.TokenNode(p[3].children)
+    """while_block : WHILE_BEGIN eval NEW_LINE file WHILE_END """
+    p[0] = AST.WhileNode(p[2], p[4].children)
+
+
+def p_eval(p):
+    """ eval : VAR '<' WORD"""
+    p[0] = AST.EvalNode(p[1], p[2], p[3])
 
 
 def p_op(p):
