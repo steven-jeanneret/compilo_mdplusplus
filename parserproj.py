@@ -20,7 +20,18 @@ def p_file(p):
 
 def p_line(p):
     """ line : statement NEW_LINE """
+
     p[0] = AST.LineNode(p[1].children)
+
+
+def p_op(p):
+    """ statement : VAR ADD_OP WORD
+        | VAR MUL_OP WORD"""
+    try:
+        nb = int(p[3])
+        p[0] = AST.OpNode(p[2], [p[1], p[3]])
+    except(ValueError):
+        pass
 
 
 def p_line_title(p):
@@ -38,6 +49,7 @@ def p_statement(p):
         p[0] = AST.StatementNode([p[1], p[2]])
     else:
         p[0] = AST.StatementNode(p[1])
+
 
 def p_statement_multi(p):
     """ statement : statement statement """

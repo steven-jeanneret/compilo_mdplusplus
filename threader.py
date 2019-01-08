@@ -1,6 +1,7 @@
 import AST
 from AST import addToClass
 
+
 @addToClass(AST.Node)
 def thread(self, lastNode):
     for c in self.children:
@@ -20,7 +21,7 @@ if __name__ == '__main__':
     import sys
     import os
 
-    os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
+    ##os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
     entry = thread(ast)

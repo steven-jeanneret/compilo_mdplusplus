@@ -1,6 +1,13 @@
 import AST
 from AST import addToClass
 
+operations = {
+    '+': lambda x, y: x + y,
+    '-': lambda x, y: x - y,
+    '*': lambda x, y: x * y,
+    '/': lambda x, y: x / y,
+}
+
 vars = {}
 
 
@@ -50,6 +57,17 @@ def compile(self):
     for c in self.children:
         output += c.compile() + " "
     return output
+
+
+@addToClass(AST.OpNode)
+def compile(self):
+    try:
+        y = int(self.children[1])
+        x = int(vars[self.children[0]])
+        res = AST.TokenNode(str(operations[self.op](x, y)))
+    except ValueError:
+        res = AST.TokenNode(vars[self.children[0]])
+    return res
 
 
 @addToClass(AST.StyleNode)
