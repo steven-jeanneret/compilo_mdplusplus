@@ -8,6 +8,12 @@ operations = {
     '/': lambda x, y: x / y,
 }
 
+evaluate = {
+    '<': lambda x,y: x<y,
+    '>': lambda x,y: x>y,
+    '==': lambda x,y: x==y,
+}
+
 vars = {}
 
 
@@ -71,6 +77,23 @@ def compile(self):
 @addToClass(AST.StyleNode)
 def compile(self):
     return f"<{self.tok}>{self.children[0].compile()}</{self.tok}>"
+
+
+@addToClass(AST.EvalNode)
+def compile(self):
+    print(f"{self.var_name} + s")
+    return evaluate[self.cond](vars[self.var_name], self.stop_val)
+
+
+@addToClass(AST.WhileNode)
+def compile(self):
+    output = ""
+    while self.op.compile():
+        for c in self.children:
+            out = c.compile()
+            if out is not None:
+                output += out + " "
+    return output
 
 
 if __name__ == '__main__':
