@@ -36,7 +36,7 @@ def p_while(p):
 
 def p_eval(p):
     """ eval : VAR EVAL_OP WORD"""
-    p[0] = AST.EvalNode(p[1], p[2], p[3])
+    p[0] = AST.EvalNode(AST.TokenNode(p[1]), p[2], p[3])
 
 
 def p_op(p):

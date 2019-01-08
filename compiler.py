@@ -81,8 +81,7 @@ def compile(self):
 
 @addToClass(AST.EvalNode)
 def compile(self):
-    print(f"{self.var_name} + s")
-    return evaluate[self.cond](vars[self.var_name], self.stop_val)
+    return evaluate[self.cond](self.var_name.compile(), self.stop_val)
 
 
 @addToClass(AST.WhileNode)
