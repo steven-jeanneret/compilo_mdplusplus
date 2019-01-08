@@ -8,6 +8,6 @@ test **bold text encore** tu me vois?
 test *italic text*
 * Elem 1
 * Elem 2
-	* Elem 2_1
+
 _plouc
 _plouc
