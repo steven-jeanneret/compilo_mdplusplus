@@ -141,7 +141,7 @@ class WhileNode(Node):
         self.op = op
 
     def __repr__(self):
-        return repr(f"while")
+        return repr(f"while {self.op}")
 
 
 class EvalNode(Node):
@@ -154,7 +154,7 @@ class EvalNode(Node):
         self.stop_val = stop_val
 
     def __repr__(self):
-        return repr(f"{self.cond} {self.stop_val}")
+        return repr(f"{self.var_name} {self.cond} {self.stop_val}")
 
 
 class StatementNode(Node):

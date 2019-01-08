@@ -21,10 +21,11 @@ tokens = (
              'HEADER_TITLE',
              'DOUBLE_DELIMITER',
              'SINGLE_DELIMITER',
+             'EVAL_OP',
          ) + tuple(map(lambda s: s.upper(), reserved_words))
 
-literals = '()=<>'
-
+literals = '()='
+t_EVAL_OP = r'<|>|=='
 t_WHILE_BEGIN = r'_while'
 t_WHILE_END = r'_endwhile'
 t_HEADER_TITLE = r'\#{1,6}'

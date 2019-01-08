@@ -35,7 +35,7 @@ def p_while(p):
 
 
 def p_eval(p):
-    """ eval : VAR '<' WORD"""
+    """ eval : VAR EVAL_OP WORD"""
     p[0] = AST.EvalNode(p[1], p[2], p[3])
 
 
