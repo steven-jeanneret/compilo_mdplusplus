@@ -51,18 +51,20 @@ def compile(self):
 def compile(self):
     output = ""
     for c in self.children:
-        output += c.compile() + " "
+        out = c.compile()
+        if out is not None:
+            output += out + " "
     return output
 
 
 @addToClass(AST.OpNode)
 def compile(self):
     try:
-        y = int(self.children[1])
-        x = int(vars[self.children[0]])
-        res = AST.TokenNode(str(operations[self.op](x, y)))
+        y = int(self.children[1].tok)
+        x = int(vars[self.children[0].tok])
+        res = str(operations[self.op](x, y))
     except ValueError:
-        res = AST.TokenNode(vars[self.children[0]])
+        res = vars[self.children[0]]
     return res
 
 

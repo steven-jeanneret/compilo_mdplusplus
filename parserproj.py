@@ -20,8 +20,11 @@ def p_file(p):
 
 def p_line(p):
     """ line : statement NEW_LINE """
-
     p[0] = AST.LineNode(p[1])
+
+def p_line_assign(p):
+    """ line : assign NEW_LINE """
+    p[0] = AST.StatementNode(p[1])  # Don't display blank line
 
 
 def p_op(p):
@@ -42,7 +45,6 @@ def p_line_title(p):
 def p_statement(p):
     """ statement : words statement
                 | words
-                | assign
                 | use_var """
     if len(p) > 2:
         p[0] = AST.StatementNode([p[1], p[2]])

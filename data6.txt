@@ -1,4 +1,5 @@
 _lol=3
+_lol
 # Titre niveau 1
 ## Titre niveau 2
 test
@@ -11,3 +12,6 @@ t *italic text*
 	* Elem 2_1
 _lol=_lol + 4
 _lol
+_test = **bold**
+_test = *italic*
+_test
