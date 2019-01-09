@@ -9,18 +9,21 @@ vars = {}
 def p_file_line(p):
     """ file : line file
             | list file
-            | while_block file
-            | for_block file """
+            | code file """
     p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
 def p_file(p):
     """ file : line
             | list
-            | while_block
-            | for_block"""
+            | code """
     p[0] = AST.ProgramNode(p[1])
 
+
+def p_code(p):
+    """ code : while_block
+            | for_block """
+    p[0] = AST.ProgramNode(p[1])
 
 def p_line(p):
     """ line : statement NEW_LINE

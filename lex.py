@@ -6,6 +6,8 @@ tokens = (
              'WHILE_END',
              'FOR_BEGIN',
              'FOR_END',
+             'IF_BEGIN',
+             'IF_END',
              'WORD',
              'ADD_OP',
              'MUL_OP',
@@ -22,6 +24,8 @@ t_WHILE_BEGIN = r'_while'
 t_WHILE_END = r'_endwhile'
 t_FOR_BEGIN = r'_for'
 t_FOR_END = r'_endfor'
+t_IF_BEGIN = r'_if'
+t_IF_END = r'_endif'
 t_HEADER_TITLE = r'\#{1,6}'
 t_WORD = r'[A-Za-z0-9()!?:.,]+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
