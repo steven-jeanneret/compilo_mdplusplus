@@ -9,29 +9,40 @@ vars = {}
 def p_file_line(p):
     """ file : line file
             | list file
-            | while_block file"""
+            | while_block file
+            | for_block file """
     p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
 def p_file(p):
     """ file : line
             | list
-            | while_block """
+            | while_block
+            | for_block"""
     p[0] = AST.ProgramNode(p[1])
 
 
 def p_line(p):
-    """ line : statement NEW_LINE """
+    """ line : statement NEW_LINE
+            | statement """
     p[0] = AST.LineNode(p[1])
 
 def p_line_assign(p):
-    """ line : assign NEW_LINE """
+    """ line : assign NEW_LINE
+            | assign """
     p[0] = AST.StatementNode(p[1])  # Don't display blank line
 
 
 def p_while(p):
-    """while_block : WHILE_BEGIN eval NEW_LINE file WHILE_END """
+    """while_block : WHILE_BEGIN eval NEW_LINE file WHILE_END NEW_LINE
+                    | WHILE_BEGIN eval NEW_LINE file WHILE_END """
     p[0] = AST.WhileNode(p[2], p[4].children)
+
+
+def p_for(p):
+    """ for_block : FOR_BEGIN assign ';' eval ';' assign NEW_LINE file FOR_END
+                | FOR_BEGIN assign ';' eval ';' assign NEW_LINE file FOR_END NEW_LINE """
+    p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
 
 
 def p_eval(p):
@@ -49,15 +60,15 @@ def p_op(p):
 
 
 def p_line_title(p):
-    """ line : HEADER_TITLE words NEW_LINE """
+    """ line : HEADER_TITLE words NEW_LINE
+    | HEADER_TITLE words """
     lvl_title = len(p[1])
     p[0] = AST.StyleNode(f"h{lvl_title}", p[2])
 
 
 def p_statement(p):
-    """ statement : words statement
-                | words
-                | use_var """
+    """ statement : words
+                | use_var"""
     if len(p) > 2:
         p[0] = AST.StatementNode([p[1], p[2]])
     else:

@@ -95,6 +95,19 @@ def compile(self):
     return output
 
 
+@addToClass(AST.ForNode)
+def compile(self):
+    output = ""
+    self.set_var.compile()
+    while self.cond.compile():
+        for c in self.children:
+            out = c.compile()
+            if out is not None:
+                output += out + " "
+        self.inc.compile()
+    return output
+
+
 if __name__ == '__main__':
     from parserproj import parse
     import sys, os

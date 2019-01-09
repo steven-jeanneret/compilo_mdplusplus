@@ -144,10 +144,23 @@ class WhileNode(Node):
         return repr(f"while {self.op}")
 
 
+class ForNode(Node):
+    type = 'for'
+
+    def __init__(self, set_var, cond, inc, children=None):
+        Node.__init__(self, children)
+        self.set_var = set_var
+        self.cond = cond
+        self.inc = inc
+
+    def __repr__(self):
+        return repr(f"for")
+
+
 class EvalNode(Node):
     type = 'eval'
 
-    def __init__(self, var_name, cond, stop_val, ):
+    def __init__(self, var_name, cond, stop_val):
         Node.__init__(self)
         self.var_name = var_name
         self.cond = cond

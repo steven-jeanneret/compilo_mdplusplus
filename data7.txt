@@ -20,4 +20,8 @@ _while _i<3
 _i
 _i = _i + 1
 _endwhile
+_for _j=0 ; _j<5 ; _j=_j+1
+_j
+test
+_endfor
 test

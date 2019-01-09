@@ -1,19 +1,11 @@
 import ply.lex as lex
 
-reserved_words = (
-    '_if',
-    '_elif',
-    '_endif',
-    '_for',
-    '_endfor',
-    '_func',
-    '_endfunc',
-)
-
 tokens = (
              'VAR',
              'WHILE_BEGIN',
              'WHILE_END',
+             'FOR_BEGIN',
+             'FOR_END',
              'WORD',
              'ADD_OP',
              'MUL_OP',
@@ -22,14 +14,16 @@ tokens = (
              'DOUBLE_DELIMITER',
              'SINGLE_DELIMITER',
              'EVAL_OP',
-         ) + tuple(map(lambda s: s.upper(), reserved_words))
+         )
 
-literals = '()='
+literals = '=;'
 t_EVAL_OP = r'<|>|=='
 t_WHILE_BEGIN = r'_while'
 t_WHILE_END = r'_endwhile'
+t_FOR_BEGIN = r'_for'
+t_FOR_END = r'_endfor'
 t_HEADER_TITLE = r'\#{1,6}'
-t_WORD = r'[A-Za-z0-9()!?;:.,]+'
+t_WORD = r'[A-Za-z0-9()!?:.,]+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
 t_VAR = r'_\w+'
