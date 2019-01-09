@@ -81,7 +81,8 @@ def p_statement_italic(p):
 
 
 def p_list(p):
-    """ list : SINGLE_DELIMITER statement NEW_LINE"""
+    """ list : SINGLE_DELIMITER statement NEW_LINE
+            | SINGLE_DELIMITER statement"""
     p[0] = AST.StyleNode('li', p[2])
 
 
