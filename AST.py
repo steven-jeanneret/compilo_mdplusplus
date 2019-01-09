@@ -157,6 +157,16 @@ class ForNode(Node):
         return repr(f"for")
 
 
+class IfNode(Node):
+    type = 'if'
+
+    def __init__(self, cond, children):
+        Node.__init__(self, children)
+        self.cond = cond
+
+    def __repr__(self):
+        return repr(f"if")
+
 class EvalNode(Node):
     type = 'eval'
 

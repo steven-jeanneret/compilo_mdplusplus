@@ -1,13 +1,16 @@
 import ply.lex as lex
 
+reserved_words = (
+    '_while',
+    '_endwhile',
+    '_for',
+    '_endfor',
+    '_if',
+    '_else',
+    '_endif',
+)
+
 tokens = (
-             'VAR',
-             'WHILE_BEGIN',
-             'WHILE_END',
-             'FOR_BEGIN',
-             'FOR_END',
-             'IF_BEGIN',
-             'IF_END',
              'WORD',
              'ADD_OP',
              'MUL_OP',
@@ -16,21 +19,15 @@ tokens = (
              'DOUBLE_DELIMITER',
              'SINGLE_DELIMITER',
              'EVAL_OP',
-         )
+             'VAR',
+         ) + tuple(map(lambda s: s.upper(), reserved_words))
 
 literals = '=;'
 t_EVAL_OP = r'<|>|=='
-t_WHILE_BEGIN = r'_while'
-t_WHILE_END = r'_endwhile'
-t_FOR_BEGIN = r'_for'
-t_FOR_END = r'_endfor'
-t_IF_BEGIN = r'_if'
-t_IF_END = r'_endif'
 t_HEADER_TITLE = r'\#{1,6}'
 t_WORD = r'[A-Za-z0-9()!?:.,]+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
-t_VAR = r'_\w+'
 t_ADD_OP = r'[+-]'
 t_MUL_OP = r'[*/]'
 
@@ -41,6 +38,11 @@ def t_NEW_LINE(t):
     t.value = ""
     return t
 
+def t_VAR(t):
+    r'_\w+'
+    if t.value in reserved_words:
+        t.type = t.value.upper()
+    return t
 
 def t_error(t):
     print("Illegal character '%s'" % repr(t.value[0]))

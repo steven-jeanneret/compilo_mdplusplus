@@ -9,9 +9,9 @@ operations = {
 }
 
 evaluate = {
-    '<': lambda x,y: x<y,
-    '>': lambda x,y: x>y,
-    '==': lambda x,y: x==y,
+    '<': lambda x, y: x < y,
+    '>': lambda x, y: x > y,
+    '==': lambda x, y: x == y,
 }
 
 vars = {}
@@ -105,6 +105,16 @@ def compile(self):
             if out is not None:
                 output += out + " "
         self.inc.compile()
+    return output
+
+
+@addToClass(AST.IfNode)
+def compile(self):
+    output = ""
+    if self.cond.compile():
+        output = self.children[0].compile()
+    elif len(self.children) > 1:
+        output = self.children[1].compile()
     return output
 
 
