@@ -28,18 +28,11 @@ def p_file(p):
     p[0] = AST.ProgramNode(p[1])
 
 
-def p_code(p):
-    """ code : while_block
-            | for_block
-            | if_block
-            | if_else_block """
-    p[0] = AST.ProgramNode(p[1])
-
-
 def p_line(p):
     """ line : statement NEW_LINE
             | statement """
     p[0] = AST.LineNode(p[1])
+
 
 def p_line_assign(p):
     """ line : assign NEW_LINE
@@ -47,31 +40,11 @@ def p_line_assign(p):
     p[0] = AST.StatementNode(p[1])  # Don't display blank line
 
 
-def p_while(p):
-    """while_block : _WHILE eval NEW_LINE file _ENDWHILE NEW_LINE
-                    | _WHILE eval NEW_LINE file _ENDWHILE """
-    p[0] = AST.WhileNode(p[2], p[4].children)
-
-
-def p_for(p):
-    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR
-                | _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR NEW_LINE """
-    p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
-
-
-def p_if(p):
-    """ if_block : _IF eval NEW_LINE file _ENDIF"""
-    p[0] = AST.IfNode(p[2], [p[4]])
-
-
-def p_if_else(p):
-    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF"""
-    p[0] = AST.IfNode(p[2], [p[4], p[7]])
-
-
-def p_eval(p):
-    """ eval : VAR EVAL_OP WORD"""
-    p[0] = AST.EvalNode(AST.TokenNode(p[1]), p[2], p[3])
+def p_line_title(p):
+    """ line : HEADER_TITLE words NEW_LINE
+    | HEADER_TITLE words """
+    lvl_title = len(p[1])
+    p[0] = AST.StyleNode(f"h{lvl_title}", p[2])
 
 
 def p_op(p):
@@ -81,13 +54,6 @@ def p_op(p):
         p[0] = AST.OpNode(p[2], [AST.TokenNode(p[1]), AST.TokenNode(p[3])])
     except(ValueError):
         pass
-
-
-def p_line_title(p):
-    """ line : HEADER_TITLE words NEW_LINE
-    | HEADER_TITLE words """
-    lvl_title = len(p[1])
-    p[0] = AST.StyleNode(f"h{lvl_title}", p[2])
 
 
 def p_statement(p):
@@ -114,18 +80,64 @@ def p_statement_italic(p):
     p[0] = AST.StyleNode('i', p[2])
 
 
-def p_words(p):
-    """ words : WORD
-                | WORD words"""
-    if len(p) > 2:
-        p[0] = AST.TokenNode(p[1], p[2])
-    else:
-        p[0] = AST.TokenNode(p[1])
-
-
 def p_list(p):
     """ list : SINGLE_DELIMITER statement NEW_LINE"""
     p[0] = AST.StyleNode('li', p[2])
+
+
+def p_words(p):
+    """ words : WORD """
+    p[0] = AST.TokenNode(p[1])
+
+
+def p_words_multi(p):
+    """ words : WORD words """
+    p[0] = AST.TokenNode(p[1], p[2])
+
+
+def p_var_use(p):
+    """ use_var : VAR """
+    p[0] = AST.TokenNode(p[1])
+
+
+def p_eval(p):
+    """ eval : VAR EVAL_OP WORD"""
+    p[0] = AST.EvalNode(AST.TokenNode(p[1]), p[2], p[3])
+
+
+def p_var_assign(p):
+    """ assign : VAR '=' statement """
+    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
+
+
+def p_code(p):
+    """ code : while_block
+            | for_block
+            | if_block
+            | if_else_block """
+    p[0] = AST.ProgramNode(p[1])
+
+
+def p_while(p):
+    """while_block : _WHILE eval NEW_LINE file _ENDWHILE NEW_LINE
+                    | _WHILE eval NEW_LINE file _ENDWHILE """
+    p[0] = AST.WhileNode(p[2], p[4].children)
+
+
+def p_for(p):
+    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR
+                | _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR NEW_LINE """
+    p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
+
+
+def p_if(p):
+    """ if_block : _IF eval NEW_LINE file _ENDIF"""
+    p[0] = AST.IfNode(p[2], [p[4]])
+
+
+def p_if_else(p):
+    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF"""
+    p[0] = AST.IfNode(p[2], [p[4], p[7]])
 
 
 def p_error(p):
@@ -134,16 +146,6 @@ def p_error(p):
         yacc.yacc().errok()
     else:
         print("Sytax error: unexpected end of file!")
-
-
-def p_var_assign(p):
-    """ assign : VAR '=' statement """
-    p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
-
-
-def p_var_use(p):
-    """ use_var : VAR """
-    p[0] = AST.TokenNode(p[1])
 
 
 def parse(program):
