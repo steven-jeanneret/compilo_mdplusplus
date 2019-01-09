@@ -112,7 +112,8 @@ def p_var_assign(p):
 
 
 def p_code(p):
-    """ code : while_block
+    """ code : code NEW_LINE
+            | while_block
             | for_block
             | if_block
             | if_else_block """
@@ -120,26 +121,22 @@ def p_code(p):
 
 
 def p_while(p):
-    """while_block : _WHILE eval NEW_LINE file _ENDWHILE NEW_LINE
-                    | _WHILE eval NEW_LINE file _ENDWHILE """
+    """while_block : _WHILE eval NEW_LINE file _ENDWHILE"""
     p[0] = AST.WhileNode(p[2], p[4].children)
 
 
 def p_for(p):
-    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR NEW_LINE
-                | _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR """
+    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR"""
     p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
 
 
 def p_if(p):
-    """ if_block : _IF eval NEW_LINE file _ENDIF NEW_LINE
-                | _IF eval NEW_LINE file _ENDIF """
+    """ if_block : _IF eval NEW_LINE file _ENDIF """
     p[0] = AST.IfNode(p[2], [p[4]])
 
 
 def p_if_else(p):
-    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF NEW_LINE
-                        | _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF"""
+    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF """
     p[0] = AST.IfNode(p[2], [p[4], p[7]])
 
 
