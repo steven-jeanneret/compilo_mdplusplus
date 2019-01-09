@@ -1,14 +1,10 @@
-# coding: latin-1
+"""
+Jaggi Charles-Lewis
+Jeanneret Steven
+HE-ARC
+13 janvier 2019
+"""
 
-''' Petit module utilitaire pour la construction, la manipulation et la 
-représentation d'arbres syntaxiques abstraits.
-
-Sûrement plein de bugs et autres surprises. À prendre comme un 
-"work in progress"...
-Notamment, l'utilisation de pydot pour représenter un arbre syntaxique cousu
-est une utilisation un peu "limite" de graphviz. Ça marche, mais le layout n'est
-pas toujours optimal...
-'''
 
 import pydot
 

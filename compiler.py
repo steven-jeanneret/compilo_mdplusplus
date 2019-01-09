@@ -1,3 +1,11 @@
+"""
+Jaggi Charles-Lewis
+Jeanneret Steven
+HE-ARC
+13 janvier 2019
+"""
+
+
 import AST
 from AST import addToClass
 
