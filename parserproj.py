@@ -126,20 +126,20 @@ def p_while(p):
 
 
 def p_for(p):
-    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR
-                | _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR NEW_LINE """
+    """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR NEW_LINE
+                | _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR """
     p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
 
 
 def p_if(p):
-    """ if_block : _IF eval NEW_LINE file _ENDIF
-                | _IF eval NEW_LINE file _ENDIF NEW_LINE """
+    """ if_block : _IF eval NEW_LINE file _ENDIF NEW_LINE
+                | _IF eval NEW_LINE file _ENDIF """
     p[0] = AST.IfNode(p[2], [p[4]])
 
 
 def p_if_else(p):
-    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF
-                        | _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF NEW_LINE"""
+    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF NEW_LINE
+                        | _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF"""
     p[0] = AST.IfNode(p[2], [p[4], p[7]])
 
 
