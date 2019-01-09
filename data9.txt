@@ -30,3 +30,12 @@ hello
 _else
 Salut
 _endif
+_i = 5
+_i = _i + 2
+_i
+_i = _i * 2
+_i
+_i = _i /2
+_i
+_i = _i -2
+_i

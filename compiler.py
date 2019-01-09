@@ -74,8 +74,8 @@ def compile(self):
 @addToClass(AST.OpNode)
 def compile(self):
     try:
-        y = int(self.children[1].tok)
-        x = int(vars[self.children[0].tok])
+        y = float(self.children[1].tok)
+        x = float(vars[self.children[0].tok])
         res = str(operations[self.op](x, y))
     except ValueError:
         res = vars[self.children[0]]

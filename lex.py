@@ -21,7 +21,6 @@ reserved_words = (
 tokens = (
              'WORD',
              'ADD_OP',
-             'MUL_OP',
              'NEW_LINE',
              'HEADER_TITLE',
              'DOUBLE_DELIMITER',
@@ -36,8 +35,7 @@ t_HEADER_TITLE = r'\#{1,6}'
 t_WORD = r'[A-Za-z0-9()!?:.,]+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
-t_ADD_OP = r'[+-]'
-t_MUL_OP = r'[*/]'
+t_ADD_OP = r'[+-/]'
 
 
 def t_NEW_LINE(t):

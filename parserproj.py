@@ -49,7 +49,7 @@ def p_line_title(p):
 
 def p_op(p):
     """ statement : VAR ADD_OP WORD
-        | VAR MUL_OP WORD"""
+        | VAR SINGLE_DELIMITER WORD"""
     try:
         p[0] = AST.OpNode(p[2], [AST.TokenNode(p[1]), AST.TokenNode(p[3])])
     except(ValueError):
@@ -131,12 +131,14 @@ def p_for(p):
 
 
 def p_if(p):
-    """ if_block : _IF eval NEW_LINE file _ENDIF"""
+    """ if_block : _IF eval NEW_LINE file _ENDIF
+                | _IF eval NEW_LINE file _ENDIF NEW_LINE """
     p[0] = AST.IfNode(p[2], [p[4]])
 
 
 def p_if_else(p):
-    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF"""
+    """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF
+                        | _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF NEW_LINE"""
     p[0] = AST.IfNode(p[2], [p[4], p[7]])
 
 
