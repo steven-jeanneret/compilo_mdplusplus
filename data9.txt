@@ -23,19 +23,3 @@ _for _j=0 ; _j<8 ; _j=_j+1
 _j
 test
 _endfor
-test
-_if _j<3
-hello
-_else
-Salut
-_endif
-_i = 5
-_i = _i + 2
-_i
-_i = _i * 2
-_i
-_i = _i /2
-_i
-_i = _i -2
-_i
-* test

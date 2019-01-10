@@ -32,7 +32,7 @@ tokens = (
 literals = '=;'
 t_EVAL_OP = r'<|>|=='
 t_HEADER_TITLE = r'\#{1,6}'
-t_WORD = r'[A-Za-z0-9()!?:.,]+'
+t_WORD = r'\w+'
 t_DOUBLE_DELIMITER = r'[*]{2}'
 t_SINGLE_DELIMITER = r'[*]{1}'
 t_ADD_OP = r'[+-/]'
@@ -58,7 +58,6 @@ def t_error(t):
 
 
 t_ignore = ' \t'
-
 lex.lex()
 
 if __name__ == "__main__":

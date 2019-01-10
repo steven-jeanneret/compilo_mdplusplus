@@ -1,7 +1,8 @@
-## mon super titre
-**bold text**
-*italic text*
-test2 test3 iuheihde
-iwieu
-salut plouque ou plouc ou plouk
-_while
+# Mon titre principal
+## Mon titre secondaire
+**texte gras**
+*texte italique*
+Plusieurs mots sur une ligne
+
+* Premier élément de la liste
+* Deuxième élément de la liste
