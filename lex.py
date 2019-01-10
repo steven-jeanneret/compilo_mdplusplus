@@ -44,11 +44,13 @@ def t_NEW_LINE(t):
     t.value = ""
     return t
 
+
 def t_VAR(t):
     r'_\w+'
     if t.value in reserved_words:
         t.type = t.value.upper()
     return t
+
 
 def t_error(t):
     print("Illegal character '%s'" % repr(t.value[0]))
@@ -61,9 +63,7 @@ lex.lex()
 
 if __name__ == "__main__":
     import sys
-
     prog = open(sys.argv[1]).read()
-
     lex.input(prog)
 
     while 1:

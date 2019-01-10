@@ -39,10 +39,9 @@ def compile(self):
 def compile(self):
     if self.tok in vars:
         return vars[self.tok]
-    output = ""
     if len(self.children) > 0:
-        output += self.children[0].compile()
-    return self.tok + " " + output
+        return f"{self.tok} {self.children[0].compile()}"
+    return self.tok
 
 
 @addToClass(AST.AssignNode)
@@ -54,11 +53,8 @@ def compile(self):
 def compile(self):
     output = ""
     for c in self.children:
-        out = c.compile()
-        if out is not None:
-            output += out
-    output += "<br>\n"
-    return output
+        output += c.compile()
+    return f"{output} <br>\n"
 
 
 @addToClass(AST.StatementNode)
@@ -74,12 +70,12 @@ def compile(self):
 @addToClass(AST.OpNode)
 def compile(self):
     try:
-        y = float(self.children[1].tok)
         x = float(vars[self.children[0].tok])
-        res = str(operations[self.op](x, y))
+        y = float(self.children[1].tok)
+        return str(operations[self.op](x, y))
     except ValueError:
-        res = vars[self.children[0]]
-    return res
+        print(f"an error occured in op {self.op} : {self.children[0].tok} or {self.children[1].tok} are not number")
+        exit(2)
 
 
 @addToClass(AST.StyleNode)
@@ -134,6 +130,6 @@ if __name__ == '__main__':
     ast = parse(prog)
     compiled = ast.compile()
     name = os.path.splitext(sys.argv[1])[0] + '.html'
-    with open(name, 'w') as outputfile:
-        outputfile.write(compiled)
+    with open(name, 'w') as file:
+        file.write(compiled)
     print(f"Wrote output to {name}")

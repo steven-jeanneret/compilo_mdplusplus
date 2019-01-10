@@ -14,18 +14,26 @@ from lex import tokens
 vars = {}
 
 
-def p_file_line(p):
+def p_file_line_file(p):
     """ file : line file
-            | list file
-            | code file """
+            | list file """
     p[0] = AST.ProgramNode([p[1]] + p[2].children)
 
 
-def p_file(p):
+def p_file_list_code(p):
+    """ file : code file """
+    p[0] = AST.ProgramNode(p[1].children + p[2].children)
+
+
+def p_file_line(p):
     """ file : line
-            | list
-            | code """
+            | list """
     p[0] = AST.ProgramNode(p[1])
+
+
+def p_file(p):
+    """ file : code """
+    p[0] = AST.ProgramNode(p[1].children)
 
 
 def p_line(p):
@@ -52,17 +60,15 @@ def p_op(p):
         | VAR SINGLE_DELIMITER WORD"""
     try:
         p[0] = AST.OpNode(p[2], [AST.TokenNode(p[1]), AST.TokenNode(p[3])])
-    except(ValueError):
-        pass
+    except ValueError:
+        print(f"An error occured with operation {p[1]} - {p[2]} - {p[3]}")
+        exit(1)
 
 
 def p_statement(p):
     """ statement : words
                 | use_var"""
-    if len(p) > 2:
-        p[0] = AST.StatementNode([p[1], p[2]])
-    else:
-        p[0] = AST.StatementNode(p[1])
+    p[0] = AST.StatementNode(p[1])
 
 
 def p_statement_multi(p):
@@ -111,9 +117,13 @@ def p_var_assign(p):
     p[0] = AST.AssignNode([AST.TokenNode(p[1]), p[3]])
 
 
+def p_code_line(p):
+    """ code : code NEW_LINE """
+    p[0] = AST.ProgramNode(p[1].children)
+
+
 def p_code(p):
-    """ code : code NEW_LINE
-            | while_block
+    """ code : while_block
             | for_block
             | if_block
             | if_else_block """
@@ -127,17 +137,17 @@ def p_while(p):
 
 def p_for(p):
     """ for_block : _FOR assign ';' eval ';' assign NEW_LINE file _ENDFOR"""
-    p[0] = AST.ForNode(p[2], p[4], p[6], p[8])
+    p[0] = AST.ForNode(p[2], p[4], p[6], p[8].children)
 
 
 def p_if(p):
     """ if_block : _IF eval NEW_LINE file _ENDIF """
-    p[0] = AST.IfNode(p[2], [p[4]])
+    p[0] = AST.IfNode(p[2], p[4].children)
 
 
 def p_if_else(p):
     """ if_else_block : _IF eval NEW_LINE file _ELSE NEW_LINE file _ENDIF """
-    p[0] = AST.IfNode(p[2], [p[4], p[7]])
+    p[0] = AST.IfNode(p[2], p[4].children + p[7].children)
 
 
 def p_error(p):
@@ -159,7 +169,6 @@ if __name__ == "__main__":
 
     prog = open(sys.argv[1]).read()
     result = yacc.parse(prog)
-    print(result)
     if result:
         import os
 

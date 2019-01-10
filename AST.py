@@ -78,10 +78,10 @@ class Node:
             edge = pydot.Edge(self.ID, c.ID)
             edge.set_color(color)
             edge.set_arrowsize('.5')
-            # Les arrêtes correspondant aux coutures ne sont pas prises en compte
-            # pour le layout du graphe. Ceci permet de garder l'arbre dans sa représentation
+            # Les arrï¿½tes correspondant aux coutures ne sont pas prises en compte
+            # pour le layout du graphe. Ceci permet de garder l'arbre dans sa reprï¿½sentation
             # "standard", mais peut provoquer des surprises pour le trajet parfois un peu
-            # tarabiscoté des coutures...
+            # tarabiscotï¿½ des coutures...
             # En commantant cette ligne, le layout sera bien meilleur, mais l'arbre nettement
             # moins reconnaissable.
             edge.set_constraint('false')
@@ -100,22 +100,18 @@ class OpNode(Node):
     def __init__(self, op, children):
         Node.__init__(self, children)
         self.op = op
-        try:
-            self.nbargs = len(children)
-        except AttributeError:
-            self.nbargs = 1
 
     def __repr__(self):
-        return "%s (%s)" % (self.op, self.nbargs)
+        return f"{self.op}"
 
 
 class LineNode(Node):
     def __init__(self, children):
         Node.__init__(self, children)
-        self.tok = "new line"
+        self.tok = "line"
 
     def __repr__(self):
-        return repr(self.tok)
+        return self.tok
 
 
 class StyleNode(Node):
@@ -126,7 +122,7 @@ class StyleNode(Node):
         self.tok = tok
 
     def __repr__(self):
-        return repr(self.tok)
+        return self.tok
 
 
 class WhileNode(Node):
@@ -137,7 +133,7 @@ class WhileNode(Node):
         self.op = op
 
     def __repr__(self):
-        return repr(f"while {self.op}")
+        return f"while {self.op}"
 
 
 class ForNode(Node):
@@ -150,7 +146,7 @@ class ForNode(Node):
         self.inc = inc
 
     def __repr__(self):
-        return repr(f"for")
+        return f"for {self.cond}"
 
 
 class IfNode(Node):
@@ -161,7 +157,8 @@ class IfNode(Node):
         self.cond = cond
 
     def __repr__(self):
-        return repr(f"if")
+        return f"if {self.cond}"
+
 
 class EvalNode(Node):
     type = 'eval'
@@ -173,7 +170,7 @@ class EvalNode(Node):
         self.stop_val = stop_val
 
     def __repr__(self):
-        return repr(f"{self.var_name} {self.cond} {self.stop_val}")
+        return f"{self.var_name} {self.cond} {self.stop_val}"
 
 
 class StatementNode(Node):
@@ -201,7 +198,6 @@ class AssignNode(Node):
 
 class PrintNode(Node):
     type = 'print'
-
 
 
 class EntryNode(Node):

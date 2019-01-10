@@ -9,7 +9,6 @@ test3
 t *italic text*
 * Elem 1
 * Elem 2
-	* Elem 2_1
 _lol=_lol + 4
 _lol
 _test = **bold**
@@ -18,7 +17,7 @@ _test
 _i = 0
 _while _i<3
 _i
-_i = _i + 1
+_i = _i + 2
 _endwhile
 _for _j=0 ; _j<8 ; _j=_j+1
 _j
