@@ -6,6 +6,8 @@ HE-ARC
 
 Module to parse the given code.
 Contain the rules of the language and build the syntactic tree
+Graphviz is needed and it may be necessary to define the path
+Edit PATH_TO_GRAPHVIZ places after import
 """
 
 
@@ -14,6 +16,7 @@ import ply.yacc as yacc
 import AST
 from lex import tokens
 
+PATH_TO_GRAPHVIZ = 'C:/Program Files (x86)/Graphviz2.38/bin/'
 vars = {}
 
 
@@ -175,7 +178,7 @@ if __name__ == "__main__":
     if result:
         import os
 
-        os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
+        os.environ["PATH"] += os.pathsep + PATH_TO_GRAPHVIZ
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0] + '-ast.pdf'
         graph.write_pdf(name)

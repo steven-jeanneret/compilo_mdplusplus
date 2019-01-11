@@ -312,7 +312,6 @@ class AssignNode(Node):
     type = '='
 
 
-
 def addToClass(cls):
     def decorator(func):
         setattr(cls, func.__name__, func)
