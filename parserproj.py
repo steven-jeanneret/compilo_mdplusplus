@@ -3,6 +3,9 @@ Jaggi Charles-Lewis
 Jeanneret Steven
 HE-ARC
 13 janvier 2019
+
+Module to parse the given code.
+Contain the rules of the language and build the syntactic tree
 """
 
 
