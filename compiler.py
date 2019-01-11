@@ -108,9 +108,8 @@ def compile(self):
     Evaluate condition of between var and a value """
     try:
         return evaluate[self.cond](float(self.var_name.compile()), float(self.stop_val))
-    except TypeError:
-        print(f"an error occured in eval {self.cond} : {self.var_name.compile()} "
-              f"and {self.stop_val} don't have the same type")
+    except ValueError:
+        print(f"an error occured in op {self.op} : {self.children[0].tok} or {self.children[1].tok} are not number")
         exit(3)
 
 
