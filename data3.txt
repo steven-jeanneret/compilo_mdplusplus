@@ -1,0 +1,7 @@
+_for _i = 0 ; _i<5 ; _i = _i + 1
+_if _i == 2
+_i est égal à 2
+_else
+_i est pas égal à 2
+_endif
+_endfor

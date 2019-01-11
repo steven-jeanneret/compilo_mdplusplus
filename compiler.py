@@ -107,7 +107,7 @@ def compile(self):
     """ Add compile function to AST.EvalNode
     Evaluate condition of between var and a value """
     try:
-        return evaluate[self.cond](self.var_name.compile(), self.stop_val)
+        return evaluate[self.cond](float(self.var_name.compile()), float(self.stop_val))
     except TypeError:
         print(f"an error occured in eval {self.cond} : {self.var_name.compile()} "
               f"and {self.stop_val} don't have the same type")
