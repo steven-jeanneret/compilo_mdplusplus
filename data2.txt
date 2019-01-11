@@ -1,5 +1,7 @@
-# Titre niveau 1
-## Titre niveau 2
-test
-test1 test2
-test3
+_var = ** element gras **
+_i = 3
+_while _i > 0
+* Element _i
+_i = _i - 1
+_endwhile
+_var

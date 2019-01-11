@@ -64,8 +64,18 @@ if __name__ == "__main__":
     import sys
     prog = open(sys.argv[1]).read()
     lex.input(prog)
-
+    result = ""
     while 1:
         tok = lex.token()
         if not tok: break
-        print("line %d: %s(%s)" % (tok.lineno, tok.type, tok.value))
+        result += f"line {tok.lineno}: {tok.type}({tok.value})\n"
+
+    if result:
+        import os
+
+        name = os.path.splitext(sys.argv[1])[0] + '-lex.txt'
+        with open(name, 'w') as f:
+            f.writelines(result)
+        print("wrote ast to", name)
+    else:
+        print("Lex returned no result!")

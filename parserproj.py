@@ -39,13 +39,13 @@ def p_file(p):
 def p_line(p):
     """ line : statement NEW_LINE
             | statement """
-    p[0] = AST.LineNode(p[1])
+    p[0] = AST.LineNode(p[1])  # Will add <br>\n at end of line
 
 
 def p_line_assign(p):
     """ line : assign NEW_LINE
             | assign """
-    p[0] = AST.StatementNode(p[1])  # StatementNode will not show a blank line at end of the line
+    p[0] = AST.StatementNode(p[1])
 
 
 def p_line_title(p):
